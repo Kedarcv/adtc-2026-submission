@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "profiler_version": "adtc-profiler 0.1.0",
+  "submission": {
+    "team_id": "clair-zimbabwe",
+    "domain": "coding_assistants",
+    "language_scope": [
+      "en"
+    ],
+    "african_alpha_claim": false,
+    "budget_laptop_claim": true,
+    "submitter": {
+      "name": "Michael Mlungisi Nkomo",
+      "email": "michael.nkomo@gmail.com",
+      "github_handle": "Kedarcv"
+    },
+    "cross_disciplinary_pairing": {
+      "discipline": "education",
+      "load_bearing": true,
+      "description": "Clair provides personalized AI tutoring and coding assistance for students and developers in resource-constrained environments, enabling offline access to educational support without requiring internet connectivity or expensive cloud APIs."
+    },
+    "test_prompts": [
+      {
+        "prompt_id": "tp_001",
+        "prompt": "Write a Python function that calculates the factorial of a number using recursion, and explain how the base case prevents infinite recursion."
+      },
+      {
+        "prompt_id": "tp_002",
+        "prompt": "Debug this code: for i in range(5): print(i) if i % 2 == 0. Explain the syntax error and provide the corrected version."
+      }
+    ],
+    "model": {
+      "name": "Clair-v5-Q4_K_M",
+      "runtime": "llama.cpp",
+      "quantization": "GGUF Q4_K_M",
+      "parameters_estimate": "3B",
+      "packaging": "binary_bundle"
+    }
+  },
+  "environment": {
+    "measured_on": "participant_laptop",
+    "cpu_model": "Apple M4 Pro",
+    "ram_gb": 24.0,
+    "gpu": "integrated only",
+    "os": "macOS-26.2-arm64-arm-64bit-Mach-O"
+  },
+  "throughput": {
+    "tokens_per_second_generation": 21.94,
+    "first_token_latency_ms": 900.72,
+    "prompt_tokens": 512,
+    "generated_tokens": 128
+  },
+  "memory": {
+    "peak_rss_mb": 5876.81,
+    "steady_state_rss_mb": 4092.33,
+    "peak_vms_mb": 834178.44
+  },
+  "accuracy": [],
+  "cpu_thermal": {
+    "cpu_percent_p99": 34.6,
+    "core_temp_c_peak": null,
+    "throttled": false
+  },
+  "reproducibility": {
+    "git_commit_sha": "ed3e0e6b942e",
+    "docker_image_digest": "unknown",
+    "random_seed": 42
+  },
+  "model_info": {
+    "params_count": null,
+    "context_length": 32768,
+    "architecture": "qwen2",
+    "claimed_params_estimate": "3B",
+    "params_match": true
+  }
+}
