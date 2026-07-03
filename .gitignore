@@ -1,6 +1,6 @@
 # Model weights (downloaded by download_model.sh)
-*.gguf
-model/
+model/*.gguf
+model/.cache/
 
 # Python
 __pycache__/
