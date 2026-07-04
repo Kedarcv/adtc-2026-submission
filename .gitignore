@@ -1,3 +1,7 @@
+# Build artifacts
+llama.cpp/
+build/
+
 # Model weights (downloaded by download_model.sh)
 model/*.gguf
 model/.cache/
@@ -8,7 +12,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
 dist/
 downloads/

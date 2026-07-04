@@ -12,18 +12,18 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MODEL_DIR="$HERE/model"
 MODEL_FILE="$MODEL_DIR/clair-v5-Q4_K_M.gguf"
 
-# ── Replace this URL with your public model weight URL ─────────────────────────
-MODEL_URL="https://huggingface.co/kedarcv/ClairV5/resolve/main/gguf/clair-v5-Q4_K_M.gguf"
-# ───────────────────────────────────────────────────────────────────────────────
+# ── HuggingFace public model URL ──────────────────────────────────────────────
+MODEL_URL="https://huggingface.co/kedarcv/Clair-3B/resolve/main/gguf/clair-v5-Q4_K_M.gguf"
+# ──────────────────────────────────────────────────────────────────────────────
 
 mkdir -p "$MODEL_DIR"
 
 if [[ -f "$MODEL_FILE" ]]; then
-  echo "model already present at $MODEL_FILE — skipping download"
+  echo "✓ model already present at $MODEL_FILE — skipping download"
   exit 0
 fi
 
-echo "downloading $MODEL_URL → $MODEL_FILE (~1.8 GB)…"
+echo "⬇ downloading $MODEL_URL → $MODEL_FILE (~1.8 GB)…"
 
 if command -v curl > /dev/null 2>&1; then
   curl -L --fail --progress-bar -o "$MODEL_FILE.partial" "$MODEL_URL"

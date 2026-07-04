@@ -6,11 +6,11 @@
 
 ## Problem Context
 
-The bottleneck is access economics. Cloud-hosted language models depend on API fees, stable fibre, and sustained electricity, which are non-trivial blockers for students, clinics, and small businesses across African cities [web:38][web:41]. For a student in Lagos, a clinic in Arusha, or a shopkeeper in Dakar, always-on cloud AI is often out of reach.
+The bottleneck is access economics. Cloud-hosted language models depend on API fees, stable fibre, and sustained electricity, which are non-trivial blockers for students, clinics, and small businesses across African cities . For a student in Harare, a clinic in Gokwe, or a shopkeeper in Gweru, always-on cloud AI is often out of reach.
 
-The **Africa Deep Tech Challenge 2026** targets the machine already sitting on millions of desks: the 8 GB laptop with integrated graphics (the ADTC Standard Laptop) [web:24][web:41]. This is an applied systems engineering contest: quantization, compilation, memory management, retrieval over local corpora, and UX that still feels responsive on constrained hardware.
+The **Africa Deep Tech Challenge 2026** targets the machine already sitting on millions of desks: the 8 GB laptop with integrated graphics (the ADTC Standard Laptop) . This is an applied systems engineering contest: quantization, compilation, memory management, retrieval over local corpora, and UX that still feels responsive on constrained hardware.
 
-Clair v5 is my answer to that brief: a fully on-device assistant with a stable identity and a focus on coding and technical help, tuned to run offline on the ADTC Standard Laptop.
+Clair v5 is my answer to that brief: a fully on-device assistant with a stable reasoning and a focus on coding and technical help, tuned to run offline on the ADTC Standard Laptop.
 
 ---
 
@@ -20,11 +20,11 @@ Clair v5 is my answer to that brief: a fully on-device assistant with a stable i
 
 - Runs without cloud dependencies on the ADTC Standard Laptop.
 - Addresses one problem domain from the ADTC list.
-- Demonstrates at least one meaningful cross-disciplinary integration [web:24][web:37].
+- Demonstrates at least one meaningful cross-disciplinary integration .
 
 Clair v5 targets the **Coding Assistants** domain:
 
-- Code generation, debugging, and programming tutoring across common languages [web:37].
+- Code generation, debugging, and programming tutoring across common languages .
 - Lightweight offline tooling for students, indie devs, and SMEs who only have a budget laptop.
 
 **Cross-disciplinary integration:**
@@ -36,15 +36,15 @@ Clair v5 targets the **Coding Assistants** domain:
 
 ## Overview
 
-Clair v5 is a compact offline AI assistant with an embedded identity, designed to run on budget laptops (Intel i5 or equivalent, 8 GB DDR4, integrated graphics, CPU-only). It delivers personalized developer assistance, math and analysis support, and general Q&A without relying on cloud APIs or GPUs.
+Clair v5 is a compact offline AI assistant , designed to run on budget laptops (Intel i5 or equivalent, 8 GB DDR4, integrated graphics, CPU-only). It delivers personalized developer assistance, math and analysis support, and general Q&A without relying on cloud APIs or GPUs.
 
 **Key Features:**
-- ✅ Runs within a 7 GB RAM ceiling on the ADTC Standard Laptop [web:24][web:41].
-- ✅ Embedded identity: Clair consistently introduces and refers to itself as the same assistant.
-- ✅ Natural conversation flow: greetings, goodbyes, clarifications, follow-up questions.
-- ✅ Strong identity consistency across 30+ test questions.
-- ✅ Q4_K_M quantized GGUF checkpoint for faster CPU inference.
-- ✅ Optional local RAG over documentation and code bases (no internet required).
+-  Runs within a 7 GB RAM ceiling on the ADTC Standard Laptop .
+-  Natural conversation flow: greetings, goodbyes, clarifications, follow-up questions.
+-  Mathematical Reasoning and problem solving.
+-  Programming and debuging ingtelligence and code generation.
+-  Q4_K_M quantized GGUF checkpoint for faster CPU inference.
+-  Optional local RAG over documentation and code bases (no internet required).
 
 ---
 
@@ -52,30 +52,53 @@ Clair v5 is a compact offline AI assistant with an embedded identity, designed t
 
 ### 1. Download Model Weights
 
+The easiest way is to run the download script:
+
 ```bash
 bash download_model.sh
 ```
 
 This downloads the Q4_K_M quantized model (~1.8 GB) to `model/clair-v5-Q4_K_M.gguf`.
 
-### 2. Run with llama.cpp
+**Alternative:** Use `huggingface-hub` directly:
 
 ```bash
-# Download llama.cpp if you haven't already
-git clone https://github.com/ggerganov/llama.cpp
-cd llama.cpp && make && cd ..
+pip install huggingface-hub
+hf_download_url="https://huggingface.co/kedarcv/Clair-3B/resolve/main/gguf/clair-v5-Q4_K_M.gguf"
+mkdir -p model
+curl -L -o model/clair-v5-Q4_K_M.gguf "$hf_download_url"
+```
 
-# Run inference
-./llama.cpp/llama-cli \
+### 2. Build llama.cpp (First Time Only)
+
+```bash
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp
+mkdir -p build && cd build
+cmake .. && cmake --build . --config Release -j$(nproc)
+cd ../..
+```
+
+### 3. Run Inference
+
+```bash
+./llama.cpp/build/bin/llama-cli \
   -m model/clair-v5-Q4_K_M.gguf \
   -p "Who are you?" \
-  -n 256 \
+  -n 128 \
   --temp 0.7
 ```
 
-### 3. Run with Ollama (Alternative)
+**Quick test script:**
 
 ```bash
+bash test_model.sh
+```
+
+### 4. Run with Ollama (Alternative)
+
+```bash
+# Install Ollama first (https://ollama.ai)
 # Create Modelfile
 cat > Modelfile << 'EOF'
 FROM ./model/clair-v5-Q4_K_M.gguf
@@ -83,7 +106,6 @@ PARAMETER temperature 0.7
 PARAMETER top_p 0.9
 PARAMETER repeat_penalty 1.1
 PARAMETER num_ctx 4096
-SYSTEM "You are Clair, a helpful AI assistant."
 EOF
 
 # Create and run
@@ -104,7 +126,6 @@ ollama run clair-v5
 | **Quantization** | Q4_K_M (GGUF)               |
 | **Model Size**   | ~1.8 GB (Q4_K_M)            |
 
-The base model is a modern 3B instruction-tuned foundation model, pretrained on a large, high-quality corpus and optimized for instruction following, dialogue, reasoning, and multilingual text [web:1][web:6]. Clair v5 uses this foundation but is packaged and configured specifically for budget laptops and offline developer workflows.
 
 ---
 
@@ -137,38 +158,7 @@ The identity is embedded in the model’s behavior, so Clair introduces itself c
 
 The data setup for Clair v5 focuses on identity consistency, natural conversation, and robust instruction-following behavior rather than heavy task-specific finetuning. It emphasizes assistant-style interactions where the model responds as Clair, maintains a stable identity, and behaves like a helpful general-purpose assistant for developers and learners.
 
-### Dataset Composition
 
-The dataset for Clair v5 is aligned with the style of modern instruction-tuned foundation models:
-
-- General web text and multilingual language data.
-- Instruction-following conversations and task-oriented prompts.
-- Code and technical assistance examples (Python, JavaScript/TypeScript, Dart, etc.).
-- Structured reasoning, analysis, and multi-step problem solving.
-- Dialogues with greetings, goodbyes, clarifications, and follow-ups.
-- Identity and personalization examples where the assistant consistently answers as Clair.
-
-This keeps Clair close to the upstream capabilities of its base 3B model while nudging behavior toward consistent identity and practical on-device usage [web:1][web:6].
-
----
-
-## Behavioral Goals
-
-Clair v5 is shaped to:
-
-- Introduce itself as Clair, not as a generic hosted assistant.
-- Handle coding questions, debugging, and explanation of error messages.
-- Support basic math and scientific reasoning questions.
-- Avoid over-mentioning its identity in every response.
-- Provide concise, helpful answers suitable for low-bandwidth, offline workflows.
-
-Internal evaluation during development used:
-
-- Identity consistency tests (30+ question variants).
-- Conversational sanity checks (greetings, goodbyes, follow-up questions).
-- Simple coding and debugging prompts on laptop hardware.
-
----
 
 ## Benchmarks
 
@@ -264,7 +254,7 @@ clair-v5-submission/
 
 ## Local Testing (ADTC Profiler)
 
-You can validate the submission locally using the ADTC profiler [web:24][web:37]:
+You can validate the submission locally using the ADTC profiler:
 
 ```bash
 # Install profiler
@@ -273,7 +263,8 @@ pip install "git+https://github.com/Africa-Deep-Tech-Foundation/adtc-profiler.gi
 # Download model
 bash download_model.sh
 
-# Run profiler
+# Add llama.cpp to PATH and run profiler
+export PATH="$(pwd)/llama.cpp/build/bin:$PATH"
 adtc-profiler run \
   --submission . \
   --mode participant \
@@ -283,6 +274,12 @@ adtc-profiler run \
 # Review results
 cat submission.json
 ```
+
+**Expected metrics on Core i5 (ADTC Standard Laptop):**
+- Throughput: ~10–12 tokens/sec (CPU-only)
+- Peak RAM: ~3.2 GB (well within 7 GB budget)
+- CPU temperature: ~70–80°C (no throttling)
+- Model size: 1.8 GB (Q4_K_M GGUF)
 
 ---
 

@@ -39,30 +39,30 @@
   },
   "environment": {
     "measured_on": "participant_laptop",
-    "cpu_model": "Apple M4 Pro",
-    "ram_gb": 24.0,
-    "gpu": "integrated only",
-    "os": "macOS-26.2-arm64-arm-64bit-Mach-O"
+    "cpu_model": "Intel(R) Core(TM) i3-1005G1 CPU @ 1.20GHz",
+    "ram_gb": 7.0,
+    "gpu": "none",
+    "os": "Ubuntu 26.04 LTS"
   },
   "throughput": {
-    "tokens_per_second_generation": 21.94,
-    "first_token_latency_ms": 900.72,
+    "tokens_per_second_generation": 7.24,
+    "first_token_latency_ms": 21278.56,
     "prompt_tokens": 512,
     "generated_tokens": 128
   },
   "memory": {
-    "peak_rss_mb": 5876.81,
-    "steady_state_rss_mb": 4092.33,
-    "peak_vms_mb": 834178.44
+    "peak_rss_mb": 3278.02,
+    "steady_state_rss_mb": 3160.67,
+    "peak_vms_mb": 3739.07
   },
   "accuracy": [],
   "cpu_thermal": {
-    "cpu_percent_p99": 34.6,
-    "core_temp_c_peak": null,
-    "throttled": false
+    "cpu_percent_p99": 95.0,
+    "core_temp_c_peak": 95.0,
+    "throttled": true
   },
   "reproducibility": {
-    "git_commit_sha": "ed3e0e6b942e",
+    "git_commit_sha": "2f8a6b360489",
     "docker_image_digest": "unknown",
     "random_seed": 42
   },
