@@ -3,8 +3,11 @@ llama.cpp/
 build/
 
 # Model weights (downloaded by download_model.sh)
-model/*.gguf
+model/**/*.gguf
+model/**/*.partial
+model/gguf/
 model/.cache/
+profiler.log
 
 # Python
 __pycache__/
